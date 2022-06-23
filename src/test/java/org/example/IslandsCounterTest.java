@@ -86,6 +86,8 @@ class IslandsCounterTest {
                         """, 1),
                 Arguments.of("0 ".repeat(100000), 0),
                 Arguments.of("1 ".repeat(100000), 1),
+                Arguments.of("0 \n".repeat(100000), 0),
+                Arguments.of("1 \n".repeat(100000), 1),
                 Arguments.of("1 0 ".repeat(50000), 50000),
                 Arguments.of(("1 ".repeat(200) + "0 ").repeat(200), 200),
                 Arguments.of(("0 ".repeat(200) + "1 ").repeat(200), 200),
