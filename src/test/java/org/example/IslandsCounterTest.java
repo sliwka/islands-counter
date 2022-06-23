@@ -96,9 +96,13 @@ class IslandsCounterTest {
                 //                        1 0 1 0 1 0 1 0 1
                 //                        1 0 1 0 1 0 1 0 1
                 //                        1 0 1 1 1 0 1 1 1
-                Arguments.of("1 1 1 0 ".repeat(100) + "" + "\n" +
+                Arguments.of("1 1 1 0 ".repeat(100) + "\n" +
                                 ("1 0 1 0 ".repeat(100) + "\n").repeat(100) +
                                 "1 0 1 1 ".repeat(100)
+                        , 1),
+                // chessboard
+                Arguments.of(("1 0 ".repeat(100) + "\n" +
+                                "0 1 ".repeat(100) + "\n").repeat(50)
                         , 1)
         );
     }
