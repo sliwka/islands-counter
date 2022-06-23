@@ -10,16 +10,16 @@ public class IslandsCounter {
     private final int width;
     private final int height;
 
-    public IslandsCounter(byte[][] disappearingMap) {
-        this.disappearingMap = new byte[disappearingMap.length][];
-        if (disappearingMap.length == 0) {
-            this.width = 0;
-            this.height = 0;
+    public IslandsCounter(byte[][] map) {
+        disappearingMap = new byte[map.length][];
+        if (map.length == 0) {
+            width = 0;
+            height = 0;
         } else {
-            this.width = disappearingMap[0].length;
-            this.height = disappearingMap.length;
-            for (int i = 0; i < disappearingMap.length; i++) {
-                this.disappearingMap[i] = Arrays.copyOf(disappearingMap[i], disappearingMap[i].length);
+            width = map[0].length;
+            height = map.length;
+            for (int i = 0; i < map.length; i++) {
+                disappearingMap[i] = Arrays.copyOf(map[i], map[i].length);
             }
         }
     }
@@ -39,18 +39,18 @@ public class IslandsCounter {
 
     private void eatAllIslandFieldsFromTheMapStartingFrom(Position initialPosition) {
         Queue<Position> queue = new ArrayDeque<>();
-        tryVisitAndEat(initialPosition, queue);
+        tryToEatAndProgress(initialPosition, queue);
         while (!queue.isEmpty()) {
             var position = queue.poll();
             for (int dx = -1; dx <= 1; dx++) {
                 for (int dy = -1; dy <= 1; dy++) {
-                    tryVisitAndEat(position.move(dx, dy), queue);
+                    tryToEatAndProgress(position.move(dx, dy), queue);
                 }
             }
         }
     }
 
-    private void tryVisitAndEat(Position position, Queue<Position> queue) {
+    private void tryToEatAndProgress(Position position, Queue<Position> queue) {
         if (position.isInRectangle(width, height) && disappearingMap[position.getY()][position.getX()] == 1) {
             queue.add(position);
             disappearingMap[position.getY()][position.getX()] = 0;
