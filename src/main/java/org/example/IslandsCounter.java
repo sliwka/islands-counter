@@ -24,33 +24,33 @@ public class IslandsCounter {
         }
     }
 
-    public int count() {
+    public int countIslands() {
         int islandsCount = 0;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 if (disappearingMap[y][x] == 1) {
                     islandsCount++;
-                    eatAllIslandFieldsStartingFrom(new Position(x, y));
+                    eatAllIslandFieldsFromTheMapStartingFrom(new Position(x, y));
                 }
             }
         }
         return islandsCount;
     }
 
-    private void eatAllIslandFieldsStartingFrom(Position initialPosition) {
+    private void eatAllIslandFieldsFromTheMapStartingFrom(Position initialPosition) {
         Queue<Position> queue = new ArrayDeque<>();
-        visitSibling(initialPosition, queue);
+        tryVisitAndEat(initialPosition, queue);
         while (!queue.isEmpty()) {
             var position = queue.poll();
             for (int dx = -1; dx <= 1; dx++) {
                 for (int dy = -1; dy <= 1; dy++) {
-                    visitSibling(position.move(dx, dy), queue);
+                    tryVisitAndEat(position.move(dx, dy), queue);
                 }
             }
         }
     }
 
-    private void visitSibling(Position position, Queue<Position> queue) {
+    private void tryVisitAndEat(Position position, Queue<Position> queue) {
         if (position.isInRectangle(width, height) && disappearingMap[position.getY()][position.getX()] == 1) {
             queue.add(position);
             disappearingMap[position.getY()][position.getX()] = 0;

@@ -18,7 +18,7 @@ class IslandsCounterTest {
 
         // when
         var islandsCounter = new IslandsCounter(map);
-        int islandsCount = islandsCounter.count();
+        int islandsCount = islandsCounter.countIslands();
 
         // then
         Assertions.assertEquals(expectedIslandsCount, islandsCount);
